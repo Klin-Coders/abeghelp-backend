@@ -70,7 +70,7 @@ const decodeData = async (token: string, secret?: string) => {
 	return verify;
 };
 
-const setCookie = (res: Response, name: string, value: string | number, options: CookieOptions = {}) => {
+const setCookie = (res: Response, name: string, value: string, options: CookieOptions = {}) => {
 	res.cookie(name, value, {
 		httpOnly: true,
 		secure: ENVIRONMENT.APP.ENV === 'production',
