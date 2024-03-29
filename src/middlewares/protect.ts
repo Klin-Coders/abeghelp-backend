@@ -25,7 +25,10 @@ export const protect = catchAsync(async (req: Request, res: Response, next: Next
 		const lastVerificationTimeInMilliseconds = new Date(currentUser.twoFA.verificationTime as Date).getTime();
 
 		if (lastLoginTimeInMilliseconds > lastVerificationTimeInMilliseconds) {
-			throw new AppError('2FA verification is required', 403);
+			throw new AppError('2FA verification is required', 403, {
+				type: currentUser.twoFA.type,
+				email: currentUser.email,
+			});
 		}
 	}
 
