@@ -95,7 +95,7 @@ app.use(
 	})
 );
 //Configure Content Security Policy (CSP)
-//The main purpose of CSP is to prevent Cross-Site Scripting (XSS) attacks by not allowing the loading of content from other domains.
+//prevent Cross-Site Scripting (XSS) attacks by not allowing the loading of content from other domains.
 const contentSecurityPolicy = {
 	directives: {
 		defaultSrc: ["'self'", 'https://www.abeghelp.me', 'https://abeghelp.me', 'https://api.abeghelp.me'],
