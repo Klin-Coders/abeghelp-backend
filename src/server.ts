@@ -123,7 +123,7 @@ const helmetConfig: HelmetOptions = {
 	// X-XSS-Protection header to enable browser's built-in XSS protection
 	xssFilter: true,
 	// Referrer-Policy header
-	referrerPolicy: { policy: 'origin-when-cross-origin' },
+	// referrerPolicy: { policy: 'origin-when-cross-origin' },
 	// Strict-Transport-Security (HSTS) header for HTTPS enforcement
 	hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
 };
@@ -252,6 +252,7 @@ const appServer = server.listen(port, async () => {
 	await connectDb();
 	console.log('=> ' + appName + ' app listening on port ' + port + '!');
 	// start the email worker and queues
+
 	(async () => {
 		await startAllQueuesAndWorkers();
 	})();

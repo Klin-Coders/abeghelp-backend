@@ -28,7 +28,7 @@ export const deleteAccount = catchAsync(async (req: Request, res: Response) => {
 	});
 
 	const accountRestorationUrl = `${req.protocol}://${req.get(
-		'Referrer'
+		'referer'
 	)}/account/restore?token=${hashedAccountRestorationToken}`;
 
 	addEmailToQueue({

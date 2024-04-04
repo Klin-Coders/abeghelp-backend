@@ -17,7 +17,7 @@ export const getOneCampaign = catchAsync(async (req: Request, res: Response) => 
 	let cachedCampaign: Require_id<ICampaign> | null = null;
 
 	// check if request is from localhost
-	if (!req.get('Referrer')?.includes('localhost')) {
+	if (!req.get('referer')?.includes('localhost')) {
 		// fetch from cache
 		cachedCampaign = await getFromCache<Require_id<ICampaign>>(shortId);
 	}

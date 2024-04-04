@@ -33,7 +33,7 @@ export const forgotPassword = catchAsync(async (req: Request, res: Response) => 
 		token: passwordResetToken,
 	});
 
-	const passwordResetUrl = `${req.get('Referrer')}/reset-password?token=${hashedPasswordResetToken}`;
+	const passwordResetUrl = `${req.get('referer')}/reset-password?token=${hashedPasswordResetToken}`;
 
 	await UserModel.findByIdAndUpdate(user._id, {
 		passwordResetToken: passwordResetToken,
