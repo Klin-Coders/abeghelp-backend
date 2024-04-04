@@ -95,15 +95,16 @@ app.use(
 	})
 );
 //Configure Content Security Policy (CSP)
+//The main purpose of CSP is to prevent Cross-Site Scripting (XSS) attacks by not allowing the loading of content from other domains.
 const contentSecurityPolicy = {
 	directives: {
-		defaultSrc: ["'self'"],
-		scriptSrc: ["'self'", 'https://ajax.googleapis.com'], // TODO: change this to your frontend url, scripts and other trusted sources
-		styleSrc: ["'self'", 'trusted-cdn.com', "'unsafe-inline'"], // TODO: change this to your frontend url, styles and other trusted sources
-		imgSrc: ["'self'", 's3-bucket-url', 'data:'], // TODO: change this to your frontend url, images and other trusted sources
+		defaultSrc: ["'self'", 'https://www.abeghelp.me', 'https://abeghelp.me', 'https://api.abeghelp.me'],
+		scriptSrc: ["'self'"],
+		styleSrc: ["'self'"],
+		imgSrc: ["'self'"],
 		frameAncestors: ["'none'"],
 		objectSrc: ["'none'"],
-		upgradeInsecureRequests: "'self'",
+		upgradeInsecureRequests: [],
 	},
 };
 
@@ -122,9 +123,9 @@ const helmetConfig: HelmetOptions = {
 	// X-XSS-Protection header to enable browser's built-in XSS protection
 	xssFilter: true,
 	// Referrer-Policy header
-	referrerPolicy: { policy: 'same-origin' },
+	referrerPolicy: { policy: 'origin-when-cross-origin' },
 	// Strict-Transport-Security (HSTS) header for HTTPS enforcement
-	hsts: { maxAge: 15552000, includeSubDomains: true, preload: true },
+	hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
 };
 
 app.use(helmet(helmetConfig));
