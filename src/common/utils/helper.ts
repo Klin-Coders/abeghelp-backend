@@ -204,7 +204,7 @@ const sendVerificationEmail = async (user: Require_id<IUser>, req: Request) => {
 			to: user.email,
 			name: user.firstName,
 			email: user.email,
-			verificationLink: `${req.get('referer')}verify-email?token=${emailVerificationToken}`,
+			verificationLink: `${getDomainReferer(req)}verify-email?token=${emailVerificationToken}`,
 		},
 	});
 };
@@ -270,6 +270,20 @@ const generateUniqueIdentifier = () => {
 	return `${prefix}${randomChars}`;
 };
 
+const getDomainReferer = (req: Request) => {
+	try {
+		const referer = req.get('x-referer');
+
+		if (!referer) {
+			return `${ENVIRONMENT.FRONTEND_URL}`;
+		}
+
+		return referer;
+	} catch (error) {
+		return null;
+	}
+};
+
 export {
 	extractUAData,
 	dateFromString,
@@ -290,4 +304,5 @@ export {
 	toJSON,
 	validateTimeBased2fa,
 	generateUniqueIdentifier,
+	getDomainReferer,
 };

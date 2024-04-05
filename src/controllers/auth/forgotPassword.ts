@@ -1,4 +1,4 @@
-import { AppError, AppResponse, generateRandomString, hashData } from '@/common/utils';
+import { AppError, AppResponse, generateRandomString, getDomainReferer, hashData } from '@/common/utils';
 import { catchAsync } from '@/middlewares';
 import { UserModel } from '@/models';
 import { addEmailToQueue } from '@/queues';
@@ -33,7 +33,7 @@ export const forgotPassword = catchAsync(async (req: Request, res: Response) => 
 		token: passwordResetToken,
 	});
 
-	const passwordResetUrl = `${req.get('referer')}/reset-password?token=${hashedPasswordResetToken}`;
+	const passwordResetUrl = `${getDomainReferer(req)}/reset-password?token=${hashedPasswordResetToken}`;
 
 	await UserModel.findByIdAndUpdate(user._id, {
 		passwordResetToken: passwordResetToken,
