@@ -204,7 +204,7 @@ const sendVerificationEmail = async (user: Require_id<IUser>, req: Request) => {
 			to: user.email,
 			name: user.firstName,
 			email: user.email,
-			verificationLink: `${getDomainReferer(req)}verify-email?token=${emailVerificationToken}`,
+			verificationLink: `${getDomainReferer(req)}/verify-email?token=${emailVerificationToken}`,
 		},
 	});
 };
