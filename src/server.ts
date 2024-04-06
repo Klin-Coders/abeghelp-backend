@@ -123,7 +123,7 @@ const helmetConfig: HelmetOptions = {
 	// X-XSS-Protection header to enable browser's built-in XSS protection
 	xssFilter: true,
 	// Referrer-Policy header
-	referrerPolicy: { policy: 'origin' },
+	referrerPolicy: { policy: 'strict-origin' },
 	// Strict-Transport-Security (HSTS) header for HTTPS enforcement
 	hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
 };
