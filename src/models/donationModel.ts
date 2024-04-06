@@ -12,7 +12,7 @@ const donationSchema = new mongoose.Schema<IDonation>(
 			required: true,
 		},
 		campaignId: {
-			type: mongoose.Schema.Types.ObjectId,
+			type: mongoose.Schema.ObjectId,
 			ref: 'Campaign',
 			required: true,
 		},

@@ -67,7 +67,8 @@ export const welcomeEmail = (data: WelcomeEmailData) => {
                 </tr>
               </tbody>
             </table><a style="color:rgb(255,255,255);text-decoration:none;background-color:rgb(43,144,142);padding-left:1.75rem;padding-right:1.75rem;padding-top:0.5rem;padding-bottom:0.5rem;margin-top:0.75rem;margin-bottom:0.75rem;border-radius:0.375rem;text-align:center;margin-left:auto;margin-right:auto;cursor:pointer" target="_blank" href=${data.verificationLink}>Verify your email</a>
-            <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation">
+            <p style="font-size:14px;line-height:24px;margin:16px 0">Not able to click the button above ? Copy and paste the following link into your browser: ${data.verificationLink} </p>
+            <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="margin-top: -1.5rem;">
               <tbody>
                 <tr>
                   <td>

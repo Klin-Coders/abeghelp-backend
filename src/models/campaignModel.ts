@@ -60,7 +60,7 @@ const campaignSchema = new mongoose.Schema<ICampaign>(
 			type: String,
 		},
 		creator: {
-			type: mongoose.Schema.Types.ObjectId,
+			type: mongoose.Schema.ObjectId,
 			ref: 'User',
 			autopopulate: {
 				select: 'firstName lastName photo blurHash',
