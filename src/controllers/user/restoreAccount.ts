@@ -1,4 +1,4 @@
-import { AppError, AppResponse, decodeData } from '@/common/utils';
+import { AppError, AppResponse, decodeData, getDomainReferer } from '@/common/utils';
 import { catchAsync } from '@/middlewares';
 import { UserModel } from '@/models';
 import { addEmailToQueue } from '@/queues';
@@ -45,7 +45,7 @@ export const restoreAccount = catchAsync(async (req: Request, res: Response) => 
 		data: {
 			to: user?.email,
 			name: user?.firstName || user?.lastName || 'User',
-			loginLink: `${req.get('referer')}/signin`,
+			loginLink: `${getDomainReferer(req)}/signin`,
 		},
 	});
 
