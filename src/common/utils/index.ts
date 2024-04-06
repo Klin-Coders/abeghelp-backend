@@ -9,3 +9,4 @@ export * from './authenticate';
 export * from './upload';
 export * from './helper';
 export { default as QueryHandler } from './queryHandler';
+export * from './initialAuthData';

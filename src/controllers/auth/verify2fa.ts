@@ -9,9 +9,10 @@ import {
 	setCache,
 	validateTimeBased2fa,
 	toJSON,
+	fetchInitialData,
 } from '@/common/utils';
 import { catchAsync } from '@/middlewares';
-import { UserModel, campaignModel } from '@/models';
+import { UserModel } from '@/models';
 import { Request, Response } from 'express';
 import { DateTime } from 'luxon';
 
@@ -84,7 +85,6 @@ export const verifyTimeBased2fa = catchAsync(async (req: Request, res: Response)
 	}
 
 	await setCache(user._id.toString(), { ...user, ...toJSON(updatedUser, ['password']) });
-	const campaigns = await campaignModel.find({ creator: user._id }).sort({ createdAt: -1 }).limit(10);
-
-	return AppResponse(res, 200, { campaigns, user: toJSON(updatedUser) }, '2FA verified successfully');
+	const initialData = await fetchInitialData(user._id);
+	return AppResponse(res, 200, { ...initialData, user: toJSON(updatedUser) }, '2FA verified successfully');
 });

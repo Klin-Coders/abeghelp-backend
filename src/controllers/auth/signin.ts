@@ -5,6 +5,7 @@ import {
 	AppError,
 	AppResponse,
 	extractUAData,
+	fetchInitialData,
 	hashData,
 	sendVerificationEmail,
 	setCache,
@@ -12,7 +13,7 @@ import {
 	toJSON,
 } from '@/common/utils';
 import { catchAsync } from '@/middlewares';
-import { UserModel, campaignModel } from '@/models';
+import { UserModel } from '@/models';
 import { locationModel } from '@/models/LocationModel';
 import { addEmailToQueue } from '@/queues';
 import type { Request, Response } from 'express';
@@ -130,7 +131,7 @@ export const signIn = catchAsync(async (req: Request, res: Response) => {
 			});
 		}
 
-		const campaigns = await campaignModel.find({ creator: user._id }).sort({ createdAt: -1 }).limit(10);
-		return AppResponse(res, 200, { campaigns, user: toJSON(updatedUser) }, 'Sign in successful');
+		const initialData = await fetchInitialData(user._id);
+		return AppResponse(res, 200, { initialData, user: toJSON(updatedUser) }, 'Sign in successful');
 	}
 });

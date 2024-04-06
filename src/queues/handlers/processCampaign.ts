@@ -20,21 +20,33 @@ export const processCampaign = async (id: string) => {
 		}
 
 		// perform checks
-		const [titleIsInAppropriate, storyIsInAppropriate, titleAndStoryAreSimilar, similarCampaignExist] =
-			await Promise.all([
-				containsInappropriateContent(campaign.title),
-				containsInappropriateContent(campaign.story),
-				checkSimilarity(campaign.title, campaign.story),
-				checkForSimilarCampaign(campaign.creator, campaign.title),
-			]);
+		const [
+			titleIsInAppropriate,
+			storyIsInAppropriate,
+			titleAndStoryAreSimilar,
+			similarCampaignExist,
+			tagIsInappropriate,
+		] = await Promise.all([
+			containsInappropriateContent(campaign.title),
+			containsInappropriateContent(campaign.story),
+			checkSimilarity(campaign.title, campaign.story),
+			checkForSimilarCampaign(campaign.creator, campaign.title),
+			containsInappropriateContent(campaign.tags.join(' ').replaceAll('#', '')),
+		]);
 
 		if (titleIsInAppropriate || storyIsInAppropriate) {
 			reasons.push({
 				type: FlaggedReasonTypeEnum.INAPPROPRIATE_CONTENT,
-				reason: `Campaign ${titleIsInAppropriate ? 'title' : 'story'} contains In-appropriate content`,
+				reason: `Campaign ${titleIsInAppropriate ? 'title' : 'story'} contains inappropriate content`,
 			});
 		}
 
+		if (tagIsInappropriate) {
+			reasons.push({
+				type: FlaggedReasonTypeEnum.INAPPROPRIATE_CONTENT,
+				reason: `tags contains inappropriate content`,
+			});
+		}
 		if (!titleAndStoryAreSimilar) {
 			reasons.push({
 				type: FlaggedReasonTypeEnum.MISMATCH,
