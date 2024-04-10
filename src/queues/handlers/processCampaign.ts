@@ -65,6 +65,7 @@ export const processCampaign = async (id: string) => {
 			flaggedReasons: reasons,
 			isFlagged: reasons.length > 0 ? true : false,
 			status: reasons.length > 0 ? StatusEnum.REJECTED : StatusEnum.APPROVED,
+			isPublished: reasons.length > 0 ? false : true,
 		});
 
 		return campaign;
