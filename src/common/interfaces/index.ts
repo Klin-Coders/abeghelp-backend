@@ -10,3 +10,4 @@ export * from './user';
 export * from './location';
 export * from './donation';
 export * from './paystack';
+export * from './contact';

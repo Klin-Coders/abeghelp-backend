@@ -78,6 +78,7 @@ export const mainSchema = z.object({
 	donorName: z.string(),
 	amount: z.number().positive(),
 	hideMyDetails: z.boolean().default(false),
+	message: z.string().min(10),
 });
 
 // Define the partial for partial validation

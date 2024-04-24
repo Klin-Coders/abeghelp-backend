@@ -1,6 +1,5 @@
 import { Query, FilterQuery } from 'mongoose';
 import { ParsedQs } from 'qs';
-import { ICampaign } from '../interfaces';
 
 interface QueryString {
 	page?: string;
@@ -10,7 +9,7 @@ interface QueryString {
 	[key: string]: string | undefined;
 }
 
-export default class QueryHandler<T extends ICampaign> {
+export default class QueryHandler<T> {
 	private query: Query<T[], T>;
 	private queryString: QueryString;
 	private excludedFields: string[];

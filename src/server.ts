@@ -15,7 +15,7 @@ import { AppResponse, logger, stream } from '@/common/utils';
 import { errorHandler, socketController } from '@/controllers';
 import { catchSocketAsync, timeoutMiddleware, validateDataWithZod } from '@/middlewares';
 import { campaignQueue, emailQueue, startAllQueuesAndWorkers, stopAllQueuesAndWorkers } from '@/queues';
-import { authRouter, campaignRouter, donationRouter, paymentHookRouter, userRouter } from '@/routes';
+import { authRouter, campaignRouter, contactRouter, donationRouter, paymentHookRouter, userRouter } from '@/routes';
 import { createBullBoard } from '@bull-board/api';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ExpressAdapter } from '@bull-board/express';
@@ -177,6 +177,7 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/campaign', campaignRouter);
 app.use('/api/v1/donation', donationRouter);
 app.use('/api/v1/payment-hook', paymentHookRouter);
+app.use('/api/v1/contact', contactRouter);
 
 app.get('/api/v1/script/seeder', async (req, res) => {
 	const size = Number(req?.query?.size || 20);
