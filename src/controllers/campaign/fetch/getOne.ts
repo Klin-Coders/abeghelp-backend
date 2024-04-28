@@ -13,6 +13,7 @@ export const getOneCampaign = catchAsync(async (req: Request, res: Response) => 
 		return AppResponse(res, 400, null, 'Please provide a campaign url');
 	}
 
+<<<<<<< HEAD
 	let cachedCampaign: Require_id<ICampaign> | null = null;
 
 	// check if request is from localhost
@@ -20,6 +21,9 @@ export const getOneCampaign = catchAsync(async (req: Request, res: Response) => 
 		// fetch from cache
 		cachedCampaign = await getFromCache<Require_id<ICampaign>>(shortId);
 	}
+=======
+	const cachedCampaign = await getFromCache<Require_id<ICampaign>>(shortId);
+>>>>>>> 040f39f (refactor)
 
 	// fetch from DB if not previously cached
 	const campaign = cachedCampaign

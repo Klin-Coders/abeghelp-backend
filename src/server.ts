@@ -82,7 +82,7 @@ app.use(compression());
 // Rate limiter middleware
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 100, // Limit each IP to 100 requests per windowMs
+	max: 50, // Limit each IP to 100 requests per windowMs
 	message: 'Too many requests from this IP, please try again later.',
 });
 app.use(limiter);
@@ -181,7 +181,6 @@ app.use('/api/v1/contact', contactRouter);
 
 app.get('/api/v1/script/seeder', async (req, res) => {
 	const size = Number(req?.query?.size || 20);
-
 	await runSeeders(size);
 	return AppResponse(res, 200, null, 'Seeders ran successfully');
 });
