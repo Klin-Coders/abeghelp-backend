@@ -54,6 +54,10 @@ const hashPassword = async (password: string) => {
 	return await bcrypt.hash(password, 12);
 };
 
+const comparePassword = async (password: string, hashedPassword: string) => {
+	return await bcrypt.compare(password, hashedPassword);
+};
+
 const hashData = (data: IHashData, options?: SignOptions, secret?: string) => {
 	return jwt.sign(
 		{ ...data },
@@ -305,4 +309,5 @@ export {
 	validateTimeBased2fa,
 	generateUniqueIdentifier,
 	getDomainReferer,
+	comparePassword,
 };

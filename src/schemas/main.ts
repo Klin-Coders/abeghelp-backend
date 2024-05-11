@@ -10,6 +10,9 @@ const verifyPhoneNumber = (value: string) => {
 	return phoneUtil.isValidNumber(number);
 };
 
+const passwordRegexMessage =
+	'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character or symbol';
+
 export const mainSchema = z.object({
 	firstName: z
 		.string()
@@ -17,7 +20,7 @@ export const mainSchema = z.object({
 		.max(50, 'First name must not be 50 characters long')
 		.refine((name) => /^(?!.*-[a-z])[A-Z][a-z'-]*(?:-[A-Z][a-z'-]*)*(?:'[A-Z][a-z'-]*)*$/g.test(name), {
 			message:
-				'Firstname must be in sentence case, can include hyphen, and apostrophes (e.g., "Ali", "Ade-Bright" or "Smith\'s").',
+				'First name must be in sentence case, can include hyphen, and apostrophes (e.g., "Ali", "Ade-Bright" or "Smith\'s").',
 		}),
 	lastName: z
 		.string()
@@ -25,16 +28,21 @@ export const mainSchema = z.object({
 		.max(50, 'Last name must not be 50 characters long')
 		.refine((name) => /^(?!.*-[a-z])[A-Z][a-z'-]*(?:-[A-Z][a-z'-]*)*(?:'[A-Z][a-z'-]*)*$/g.test(name), {
 			message:
-				'Lastname must be in sentence case, can include hyphen, and apostrophes (e.g., "Ali", "Ade-Bright" or "Smith\'s").',
+				'Last name must be in sentence case, can include hyphen, and apostrophes (e.g., "Ali", "Ade-Bright" or "Smith\'s").',
 		}),
 	email: z.string().email('Please enter a valid email address!'),
 	password: z
 		.string()
 		.min(8, 'Password must have at least 8 characters!')
 		.regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).*$/, {
-			message: `Password must contain at least one uppercase letter, one lowercase letter, one number and one special character or symbol`,
+			message: passwordRegexMessage,
 		}),
-	confirmPassword: z.string(),
+	confirmPassword: z
+		.string()
+		.min(8, 'Confirm Password must have at least 8 characters!')
+		.regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).*$/, {
+			message: passwordRegexMessage,
+		}),
 	phoneNumber: z
 		.string()
 		.min(10, 'Last name must be at least 10 characters long')
@@ -79,6 +87,13 @@ export const mainSchema = z.object({
 	amount: z.number().positive(),
 	hideMyDetails: z.boolean().default(false),
 	message: z.string().min(10),
+	oldPassword: z.string().min(8),
+	newPassword: z
+		.string()
+		.min(8, 'Password must have at least 8 characters!')
+		.regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).*$/, {
+			message: passwordRegexMessage,
+		}),
 });
 
 // Define the partial for partial validation
