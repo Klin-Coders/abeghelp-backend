@@ -44,6 +44,7 @@ const userSchema = new mongoose.Schema<IUser, unknown, UserMethods>(
 		},
 		photo: {
 			type: String,
+			default: null,
 		},
 		blurHash: {
 			type: String,
