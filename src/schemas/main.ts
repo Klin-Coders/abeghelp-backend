@@ -94,6 +94,7 @@ export const mainSchema = z.object({
 		.regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).*$/, {
 			message: passwordRegexMessage,
 		}),
+	redirectUrl: z.string().url(),
 });
 
 // Define the partial for partial validation

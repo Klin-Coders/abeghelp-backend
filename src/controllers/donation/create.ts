@@ -7,7 +7,7 @@ import { initializeTransaction } from '@/common/utils/payment_services/paystack'
 import { campaignModel } from '@/models';
 
 export const createDonation = catchAsync(async (req: Request, res: Response) => {
-	const { campaignId, donorEmail, donorName, amount, hideMyDetails } = req.body;
+	const { campaignId, donorEmail, donorName, amount, hideMyDetails, redirectUrl } = req.body;
 
 	if (!campaignId || !donorEmail || !donorName || !amount) {
 		throw new AppError('All fields are required', 400);
@@ -16,7 +16,7 @@ export const createDonation = catchAsync(async (req: Request, res: Response) => 
 	const campaignExist = await campaignModel.findById(campaignId);
 
 	if (!campaignExist) {
-		throw new AppError('Error processing donation, try again later', 404);
+		throw new AppError('Campaign with id does not exist', 404);
 	}
 
 	const locationMeta = extractUAData(req);
@@ -27,6 +27,7 @@ export const createDonation = catchAsync(async (req: Request, res: Response) => 
 		amount: amount * 100,
 		email: donorEmail,
 		reference,
+		callback_url: redirectUrl,
 		metadata: {
 			campaignId,
 		},
