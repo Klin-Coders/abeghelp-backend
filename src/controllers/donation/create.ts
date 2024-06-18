@@ -5,6 +5,8 @@ import { donationModel } from '@/models';
 import { PaymentStatusEnum } from '@/common/constants';
 import { initializeTransaction } from '@/common/utils/payment_services/paystack';
 import { campaignModel } from '@/models';
+import { ILocation } from '@/common/interfaces';
+import { locationModel } from '@/models/LocationModel';
 
 export const createDonation = catchAsync(async (req: Request, res: Response) => {
 	const { campaignId, donorEmail, donorName, amount, hideMyDetails, redirectUrl } = req.body;
@@ -18,8 +20,6 @@ export const createDonation = catchAsync(async (req: Request, res: Response) => 
 	if (!campaignExist) {
 		throw new AppError('Campaign with id does not exist', 404);
 	}
-
-	const locationMeta = extractUAData(req);
 
 	const reference = generateUniqueIdentifier();
 
@@ -43,8 +43,6 @@ export const createDonation = catchAsync(async (req: Request, res: Response) => 
 		donorEmail,
 		donorName,
 		amount,
-		donorIp: locationMeta.ipv4,
-		donorIpMeta: locationMeta,
 		paymentStatus: PaymentStatusEnum.UNPAID,
 		hideDonorDetails: hideMyDetails,
 	});
@@ -52,6 +50,14 @@ export const createDonation = catchAsync(async (req: Request, res: Response) => 
 	if (!donation) {
 		throw new AppError('Error processing donation, try again later', 500);
 	}
+
+	const userAgent: Partial<ILocation> = await extractUAData(req);
+
+	// create an entry for login location metadata
+	await locationModel.create({
+		...userAgent,
+		donation: donation._id,
+	});
 
 	return AppResponse(
 		res,

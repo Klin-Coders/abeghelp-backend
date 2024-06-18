@@ -7,8 +7,6 @@ export interface IDonation {
 	donorEmail: string;
 	donorName: string;
 	amount: number;
-	donorIp: string;
-	donorIpMeta?: object;
 	paymentStatus: PaymentStatusEnum;
 	paymentDate: string;
 	paymentMeta?: object;

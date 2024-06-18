@@ -1,3 +1,4 @@
+import { LocationTypeEnum } from '@/common/constants';
 import type { ILocation } from '@/common/interfaces';
 import mongoose, { Model } from 'mongoose';
 
@@ -43,6 +44,15 @@ const locationSchema = new mongoose.Schema<ILocation>(
 		user: {
 			type: mongoose.Schema.ObjectId,
 			ref: 'User',
+		},
+		donation: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Donation',
+		},
+		type: {
+			type: String,
+			enum: Object.values(LocationTypeEnum),
+			default: LocationTypeEnum.SIGNIN,
 		},
 	},
 	{ timestamps: true }

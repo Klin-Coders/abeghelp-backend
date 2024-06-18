@@ -2,7 +2,6 @@ import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import { Category, Country, FundraiserEnum, Gender, Provider, StatusEnum } from '../../common/constants';
 import { UserModel, campaignCategoryModel, campaignModel } from '../../models';
-import { ENVIRONMENT } from '../../common/config';
 import { customAlphabet } from 'nanoid';
 import { ICampaignCategory, IUser } from '../../common/interfaces';
 
@@ -62,7 +61,7 @@ async function seedCampaigns(size?: number) {
 			}
 
 			const newCampaign = {
-				url: `${ENVIRONMENT.FRONTEND_URL}/c/${nanoid()}`,
+				shortId: nanoid(),
 				category: category!['_id'],
 				country: faker.helpers.arrayElement(Object.values(Country)),
 				tags: [faker.lorem.word(), faker.lorem.word()], // Generate random tags

@@ -19,6 +19,8 @@ export const processDonationCompleted = async (payload: IProcessDonationComplete
 
 			if (donation) {
 				await campaignModel.findByIdAndUpdate(campaignId, { $inc: { amountRaised: amount } });
+
+				// send email to donor and campaign owner
 			}
 		}
 	} catch (error) {

@@ -1,3 +1,6 @@
+import { LocationTypeEnum } from '@/common/constants';
+import mongoose from 'mongoose';
+
 export interface ILocation {
 	country: string;
 	city: string;
@@ -14,10 +17,9 @@ export interface ILocation {
 	os: string;
 	createdAt: Date;
 	updatedAt: Date;
-	user: {
-		type: string;
-		ref: string;
-	};
+	user: mongoose.Types.ObjectId;
+	donation: mongoose.Types.ObjectId;
+	type: LocationTypeEnum;
 }
 
 export type locationModel = ILocation;

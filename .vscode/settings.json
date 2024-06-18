@@ -30,7 +30,8 @@
 		"signin",
 		"signout",
 		"TOTP",
-		"uniquelocal"
+		"uniquelocal",
+		"virtuals"
 	],
 	"rules": {
 		"sort-imports": "off"

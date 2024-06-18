@@ -7,7 +7,7 @@ type campaignModel = Model<ICampaign>;
 
 const campaignSchema = new mongoose.Schema<ICampaign>(
 	{
-		url: {
+		shortId: {
 			type: String,
 			unique: true,
 			sparse: true,
@@ -102,7 +102,7 @@ const campaignSchema = new mongoose.Schema<ICampaign>(
 			default: 1,
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } }
 );
 
 campaignSchema.plugin(mongooseAutopopulate);
@@ -120,6 +120,16 @@ campaignSchema.virtual('donations', {
 		sort: { createdAt: -1 },
 		limit: 10,
 	},
+	match: {
+		hideDonorDetails: false,
+	},
+});
+
+campaignSchema.virtual('totalDonations', {
+	ref: 'Donation', // The model to use
+	localField: '_id', // Find donations where 'localField'
+	foreignField: 'campaignId', // is equal to 'foreignField'
+	count: true,
 });
 
 // only pick campaigns that are not deleted or suspended
@@ -132,6 +142,9 @@ campaignSchema.pre(/^find/, function (this: Model<ICampaign>, next) {
 
 	// do not select campaigns that are deleted or suspended
 	this.find({ isDeleted: { $ne: true } });
+	this.populate('donations', '');
+	this.populate('totalDonations', '');
+
 	next();
 });
 

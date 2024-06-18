@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 import { DateTime } from 'luxon';
 import { StatusEnum } from '@/common/constants';
 import { customAlphabet } from 'nanoid';
-import { ENVIRONMENT } from '@/common/config';
 
 const nanoid = customAlphabet('123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ', 6);
 
@@ -55,7 +54,7 @@ export const stepThree = async (req: Request, res: Response) => {
 				story,
 				storyHtml,
 				status: StatusEnum.IN_REVIEW,
-				url: campaignExist.url || `${ENVIRONMENT.FRONTEND_URL}/c/${nanoid()}`,
+				shortId: nanoid(),
 				currentStep: 3,
 			},
 			{ new: true }

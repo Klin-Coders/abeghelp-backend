@@ -1,6 +1,5 @@
-import { ENVIRONMENT } from '@/common/config';
 import { ICampaign } from '@/common/interfaces';
-import { AppError, AppResponse, getFromCache, setCache } from '@/common/utils';
+import { AppError, AppResponse, getDomainReferer, getFromCache, setCache } from '@/common/utils';
 import { catchAsync } from '@/middlewares';
 import { campaignModel } from '@/models';
 import { Request, Response } from 'express';
@@ -17,7 +16,7 @@ export const getOneCampaign = catchAsync(async (req: Request, res: Response) => 
 	let cachedCampaign: Require_id<ICampaign> | null = null;
 
 	// check if request is from localhost
-	if (!req.get('referer')?.includes('localhost')) {
+	if (!getDomainReferer(req)?.includes('localhost')) {
 		// fetch from cache
 		cachedCampaign = await getFromCache<Require_id<ICampaign>>(shortId);
 	}
@@ -26,7 +25,7 @@ export const getOneCampaign = catchAsync(async (req: Request, res: Response) => 
 	const campaign = cachedCampaign
 		? cachedCampaign
 		: ((await campaignModel.findOne({
-				url: `${ENVIRONMENT.FRONTEND_URL}/c/${shortId}`,
+				shortId,
 				isPublished: true,
 			})) as Require_id<ICampaign>);
 

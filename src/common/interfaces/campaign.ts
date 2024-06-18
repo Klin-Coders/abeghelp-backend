@@ -1,7 +1,7 @@
 import { Country, FlaggedReasonTypeEnum, FundraiserEnum, StatusEnum } from '@/common/constants';
 
 export interface ICampaign {
-	url: string;
+	shortId: string;
 	category: {
 		type: string;
 		ref: string;

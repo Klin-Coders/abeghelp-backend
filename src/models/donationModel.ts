@@ -28,13 +28,6 @@ const donationSchema = new mongoose.Schema<IDonation>(
 			type: Number,
 			required: true,
 		},
-		donorIp: {
-			type: String,
-			required: false,
-		},
-		donorIpMeta: {
-			type: Object,
-		},
 		paymentStatus: {
 			type: String,
 			enum: PaymentStatusEnum,

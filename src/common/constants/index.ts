@@ -95,3 +95,8 @@ export enum PaymentStatusEnum {
 	REFUNDED = 'Refunded',
 	REFUND_FAILED = 'Refund failed',
 }
+
+export enum LocationTypeEnum {
+	SIGNIN = 'SIGNIN',
+	DONATION = 'DONATION',
+}
