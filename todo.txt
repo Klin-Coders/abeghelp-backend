@@ -1,0 +1,3 @@
+// observations - JC
+1. send email notification to donor and campaign owner when new donation 
+2. add endpoints for bookmarking of campaign
