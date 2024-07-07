@@ -13,14 +13,13 @@ import {
 	verifyEmail,
 	verifyTimeBased2fa,
 } from '@/controllers';
-import { pwned } from '@/controllers/pwned';
 import { protect } from '@/middlewares';
 
 import { Router } from 'express';
 
 const router = Router();
 
-router.post('/pwned', pwned);
+// router.post('/pwned', pwned);
 router.post('/signup', signUp);
 router.post('/signin', signIn);
 router.post('/password/forgot', forgotPassword);
