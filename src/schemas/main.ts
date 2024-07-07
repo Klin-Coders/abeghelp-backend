@@ -43,6 +43,7 @@ export const mainSchema = z.object({
 		.regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).*$/, {
 			message: passwordRegexMessage,
 		}),
+	code: z.string().min(6, 'Code must be at least 6 characters long'),
 	phoneNumber: z
 		.string()
 		.min(10, 'Last name must be at least 10 characters long')

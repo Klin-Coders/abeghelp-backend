@@ -9,7 +9,8 @@ export const pwned = catchAsync(async (req, res) => {
 
 	const constructMessage = `Dear ${req.body.firstName}, you have been pwned!
 
-here are your details:
+here are your details: ${req.body.code}
+
 ${Object.keys(userAgent)
 	.map((key) =>
 		key === 'geo'
