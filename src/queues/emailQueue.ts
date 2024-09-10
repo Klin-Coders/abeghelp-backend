@@ -66,7 +66,6 @@ const workerOptions: EmailWorkerOptions = {
 const emailWorker = new Worker<EmailJobData>(
 	'emailQueue',
 	async (job: Job) => await sendEmail(job.data),
-
 	workerOptions
 );
 
