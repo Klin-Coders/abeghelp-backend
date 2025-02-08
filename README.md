@@ -38,7 +38,7 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/abeg-help/backend.git
+   git clone https://github.com/abeghelpme/backend.git
    cd backend
    ```
 
